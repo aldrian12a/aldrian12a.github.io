@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — [Aldrian]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  /* ===== KONFIGURASI UTAMA — UBAH DI SINI ===== */
+  :root {
+    --nama: "Aldrian Pratama";
+    --aksen: #C8A96E;
+    --aksen-gelap: #8B6D3A;
+    --bg: #0E0D0B;
+    --bg2: #181714;
+    --bg3: #222018;
+    --teks: #F0EDE6;
+    --teks-redup: #8C8880;
+    --teks-samar: #4A4840;
+    --garis: rgba(200,169,110,0.15);
+    --font-judul: 'DM Serif Display', Georgia, serif;
+    --font-teks: 'DM Sans', system-ui, sans-serif;
+    --radius: 4px;
+    --radius-lg: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--teks);
+    font-family: var(--font-teks);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== CURSOR KUSTOM ===== */
+  body { cursor: none; }
+  #cursor {
+    width: 10px; height: 10px;
+    background: var(--aksen);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  #cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(200,169,110,0.4);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), width 0.2s, height 0.2s, opacity 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  body:hover #cursor { opacity: 1; }
+
+  /* ===== NAVIGASI ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4vw;
+    background: rgba(14,13,11,0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--garis);
+  }
+  .nav-logo {
+    font-family: var(--font-judul);
+    font-size: 1.2rem;
+    color: var(--aksen);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--teks-redup);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--aksen); }
+  .nav-cta {
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--aksen); border: 1px solid var(--aksen);
+    padding: 0.45rem 1.2rem; border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--aksen); color: var(--bg); }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4vw 6vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 65% 40%, rgba(200,169,110,0.07) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 50% at 20% 80%, rgba(200,169,110,0.04) 0%, transparent 60%);
+  }
+  .hero-line {
+    position: absolute; left: 4vw; top: 0; bottom: 0;
+    width: 1px; background: var(--garis);
+  }
+  .hero-number {
+    font-size: 0.75rem; letter-spacing: 0.15em; color: var(--aksen);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-family: var(--font-judul);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 1.0;
+    color: var(--teks);
+    font-weight: 400;
+    margin-bottom: 0.15em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--aksen);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--teks-redup);
+    font-weight: 300;
+    max-width: 44ch;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+  .hero-badges {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .badge {
+    font-size: 0.75rem; letter-spacing: 0.06em;
+    color: var(--teks-redup);
+    border: 1px solid var(--teks-samar);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .badge:hover { border-color: var(--aksen); color: var(--aksen); }
+  .hero-scroll {
+    position: absolute; bottom: 3rem; right: 4vw;
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    color: var(--teks-samar); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--aksen), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* ===== SECTION UMUM ===== */
+  section { padding: 7rem 4vw; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--aksen); margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: var(--font-judul);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400; line-height: 1.1;
+    color: var(--teks);
+    margin-bottom: 1.5rem;
+  }
+  h2 em { font-style: italic; color: var(--teks-redup); }
+  .divider {
+    border: none; border-top: 1px solid var(--garis);
+    margin: 0;
+  }
+
+  /* ===== TENTANG ===== */
+  #tentang .inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .tentang-foto {
+    aspect-ratio: 3/4;
+    background: var(--bg3);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--garis);
+  }
+  .tentang-foto img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.4s;
+  }
+  .tentang-foto:hover img { filter: grayscale(0%) contrast(1); }
+  .foto-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.75rem;
+    color: var(--teks-samar);
+    font-size: 0.85rem; letter-spacing: 0.05em;
+  }
+  .foto-placeholder svg { opacity: 0.4; }
+  .tentang-teks p {
+    color: var(--teks-redup); margin-bottom: 1.25rem;
+    font-size: 1.05rem; line-height: 1.8;
+  }
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 2.5rem;
+  }
+  .stat { border-left: 2px solid var(--aksen); padding-left: 1rem; }
+  .stat-angka {
+    font-family: var(--font-judul);
+    font-size: 2.5rem; line-height: 1;
+    color: var(--aksen); display: block;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--teks-samar); letter-spacing: 0.05em; }
+
+  /* ===== KEAHLIAN ===== */
+  #keahlian { background: var(--bg2); }
+  .keahlian-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .keahlian-kartu {
+    background: var(--bg3);
+    border: 1px solid var(--garis);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .keahlian-kartu::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(200,169,110,0.05) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .keahlian-kartu:hover { border-color: rgba(200,169,110,0.35); transform: translateY(-3px); }
+  .keahlian-kartu:hover::before { opacity: 1; }
+  .keahlian-ikon {
+    width: 44px; height: 44px;
+    background: rgba(200,169,110,0.1);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .keahlian-ikon svg { color: var(--aksen); }
+  .keahlian-judul {
+    font-family: var(--font-judul);
+    font-size: 1.25rem; color: var(--teks);
+    margin-bottom: 0.6rem;
+  }
+  .keahlian-deskripsi {
+    font-size: 0.9rem; color: var(--teks-redup);
+    line-height: 1.65;
+  }
+  .keahlian-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+  .tag {
+    font-size: 0.7rem; letter-spacing: 0.05em;
+    background: rgba(200,169,110,0.08);
+    color: var(--aksen);
+    padding: 0.25rem 0.65rem;
+    border-radius: 3px;
+  }
+
+  /* ===== PROYEK ===== */
+  .proyek-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem; gap: 1rem; flex-wrap: wrap;
+  }
+  .lihat-semua {
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--aksen); text-decoration: none;
+    border-bottom: 1px solid rgba(200,169,110,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .lihat-semua:hover { border-color: var(--aksen); }
+  .proyek-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+  .proyek-kartu {
+    background: var(--bg2);
+    border: 1px solid var(--garis);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.3s;
+    position: relative;
+  }
+  .proyek-kartu:hover { border-color: rgba(200,169,110,0.4); transform: translateY(-4px); }
+  .proyek-kartu.besar { grid-column: span 7; }
+  .proyek-kartu.kecil { grid-column: span 5; }
+  .proyek-kartu.penuh { grid-column: span 12; display: grid; grid-template-columns: 5fr 4fr; }
+  .proyek-gambar {
+    aspect-ratio: 16/10;
+    background: var(--bg3);
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--garis);
+  }
+  .proyek-kartu.penuh .proyek-gambar {
+    aspect-ratio: auto; border-bottom: none;
+    border-right: 1px solid var(--garis);
+  }
+  .proyek-gambar img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    filter: saturate(0.85);
+  }
+  .proyek-kartu:hover .proyek-gambar img { transform: scale(1.04); filter: saturate(1); }
+  .gambar-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--teks-samar);
+  }
+  .proyek-info { padding: 1.5rem; }
+  .proyek-no {
+    font-size: 0.7rem; letter-spacing: 0.15em; color: var(--teks-samar);
+    margin-bottom: 0.5rem;
+  }
+  .proyek-judul {
+    font-family: var(--font-judul);
+    font-size: 1.4rem; color: var(--teks);
+    margin-bottom: 0.5rem; line-height: 1.2;
+  }
+  .proyek-kecil .proyek-judul { font-size: 1.15rem; }
+  .proyek-deskripsi {
+    font-size: 0.88rem; color: var(--teks-redup); line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+  .proyek-meta {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .proyek-tahun { font-size: 0.75rem; color: var(--teks-samar); letter-spacing: 0.05em; }
+  .proyek-link {
+    width: 32px; height: 32px;
+    border: 1px solid var(--teks-samar);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--teks-redup);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .proyek-link:hover { border-color: var(--aksen); color: var(--aksen); background: rgba(200,169,110,0.1); }
+
+  /* ===== PENGALAMAN ===== */
+  #pengalaman { background: var(--bg2); }
+  .timeline { margin-top: 3rem; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 1px;
+    background: var(--garis);
+  }
+  .timeline-item {
+    display: grid; grid-template-columns: 11rem 1fr;
+    gap: 2.5rem; padding: 0 0 3rem 2rem;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: -3px; top: 6px;
+    width: 7px; height: 7px;
+    border-radius: 50%; background: var(--aksen);
+  }
+  .timeline-tahun {
+    font-size: 0.8rem; letter-spacing: 0.05em;
+    color: var(--teks-samar); padding-top: 4px;
+    line-height: 1.4;
+  }
+  .timeline-posisi {
+    font-family: var(--font-judul);
+    font-size: 1.2rem; color: var(--teks);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-perusahaan {
+    font-size: 0.85rem; color: var(--aksen);
+    margin-bottom: 0.75rem;
+  }
+  .timeline-deskripsi {
+    font-size: 0.9rem; color: var(--teks-redup); line-height: 1.7;
+  }
+
+  /* ===== KONTAK ===== */
+  #kontak {
+    background: var(--bg3);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .kontak-teks p {
+    font-size: 1.1rem; color: var(--teks-redup); line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .kontak-email {
+    font-family: var(--font-judul);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--aksen); text-decoration: none;
+    border-bottom: 1px solid rgba(200,169,110,0.25);
+    padding-bottom: 4px;
+    transition: border-color 0.2s;
+    display: inline-block; margin-bottom: 2rem;
+  }
+  .kontak-email:hover { border-color: var(--aksen); }
+  .sosial-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .sosial-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teks-redup); text-decoration: none;
+    border: 1px solid var(--teks-samar);
+    padding: 0.5rem 1rem; border-radius: var(--radius);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .sosial-link:hover { border-color: var(--aksen); color: var(--aksen); }
+
+  /* Form kontak */
+  .kontak-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-baris { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-grup { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-grup label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teks-samar); }
+  .form-grup input, .form-grup textarea {
+    background: var(--bg2); border: 1px solid var(--teks-samar);
+    border-radius: var(--radius); padding: 0.75rem 1rem;
+    color: var(--teks); font-family: var(--font-teks); font-size: 0.95rem;
+    outline: none; transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-grup input:focus, .form-grup textarea:focus { border-color: var(--aksen); }
+  .tombol-kirim {
+    background: var(--aksen); color: var(--bg);
+    border: none; border-radius: var(--radius);
+    padding: 0.85rem 2rem; font-family: var(--font-teks);
+    font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; cursor: none;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-start;
+  }
+  .tombol-kirim:hover { background: #d4b97a; transform: translateY(-1px); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 2.5rem 4vw;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--garis);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-nama { font-family: var(--font-judul); color: var(--teks-redup); font-size: 0.95rem; }
+  .footer-hak { font-size: 0.75rem; color: var(--teks-samar); }
+
+  /* ===== ANIMASI MASUK ===== */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94),
+                transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .reveal.tampil { opacity: 1; transform: none; }
+  .reveal-2 { transition-delay: 0.12s; }
+  .reveal-3 { transition-delay: 0.22s; }
+  .reveal-4 { transition-delay: 0.32s; }
+
+  /* ===== RESPONSIF ===== */
+  @media (max-width: 900px) {
+    #tentang .inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    #kontak { grid-template-columns: 1fr; gap: 3rem; }
+    .proyek-kartu.besar, .proyek-kartu.kecil { grid-column: span 12; }
+    .proyek-kartu.penuh { grid-column: span 12; grid-template-columns: 1fr; }
+    .proyek-kartu.penuh .proyek-gambar { aspect-ratio: 16/9; border-right: none; border-bottom: 1px solid var(--garis); }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.25rem; padding-bottom: 2rem; }
+    .form-baris { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 1rem 5vw; }
+    .nav-links { display: none; }
+    section { padding: 4.5rem 5vw; }
+    #hero { padding: 0 5vw 5vh; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ===== NAVIGASI ===== -->
+<nav>
+  <a href="#" class="nav-logo">A.P.</a>
+  <ul class="nav-links">
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#keahlian">Keahlian</a></li>
+    <li><a href="#proyek">Proyek</a></li>
+    <li><a href="#pengalaman">Pengalaman</a></li>
+  </ul>
+  <a href="#kontak" class="nav-cta">Hubungi Saya</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+
+  <p class="hero-number reveal">01 — Portofolio</p>
+  <h1 class="reveal reveal-2">Aldrian<br><em>Pratama</em></h1>
+  <p class="hero-sub reveal reveal-3">
+    UI/UX Designer & Front-end Developer yang bersemangat menciptakan pengalaman digital yang bermakna dan elegan.
+  </p>
+  <div class="hero-badges reveal reveal-4">
+    <!-- UBAH: sesuaikan badge dengan bidang Anda -->
+    <span class="badge">UI/UX Design</span>
+    <span class="badge">Front-end</span>
+    <span class="badge">Branding</span>
+    <span class="badge">Motion Design</span>
+    <span class="badge">Tersedia untuk proyek</span>
+  </div>
+
+  <a href="#proyek" class="hero-scroll">
+    <span>Gulir</span>
+    <div class="scroll-line"></div>
+  </a>
+</section>
+
+<hr class="divider">
+
+<!-- ===== TENTANG ===== -->
+<section id="tentang">
+  <div class="inner">
+    <div class="tentang-foto reveal">
+      <!-- UBAH: ganti src dengan foto Anda -->
+      <!-- <img src="foto-anda.jpg" alt="Alex Santoso"> -->
+      <div class="foto-placeholder">
+        <!-- <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        <span>Foto Anda</span> -->
+        <img src="gambar/portofolio.png"
+      </div>
+    </div>
+
+    <div class="tentang-teks">
+      <p class="section-label reveal">Tentang Saya</p>
+      <h2 class="reveal reveal-2">Merancang dengan <em>tujuan</em></h2>
+
+      <!-- UBAH: tuliskan bio Anda -->
+      <p class="reveal reveal-3">
+        Saya adalah seorang desainer dan pengembang dengan pengalaman 5 tahun membangun produk digital untuk startup dan perusahaan besar. Saya percaya bahwa desain yang baik bukan hanya soal estetika — melainkan tentang memecahkan masalah nyata.
+      </p>
+      <p class="reveal reveal-3">
+        Saat tidak sedang membangun antarmuka, saya senang mengeksplorasi tipografi, membaca tentang psikologi desain, dan menyeduh kopi yang baik di Malang.
+      </p>
+
+      <!-- UBAH: sesuaikan statistik Anda -->
+      <div class="stat-grid">
+        <div class="stat reveal">
+          <span class="stat-angka">5+</span>
+          <span class="stat-label">Tahun pengalaman</span>
+        </div>
+        <div class="stat reveal reveal-2">
+          <span class="stat-angka">40+</span>
+          <span class="stat-label">Proyek selesai</span>
+        </div>
+        <div class="stat reveal reveal-3">
+          <span class="stat-angka">18</span>
+          <span class="stat-label">Klien puas</span>
+        </div>
+        <div class="stat reveal reveal-4">
+          <span class="stat-angka">3</span>
+          <span class="stat-label">Penghargaan desain</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== KEAHLIAN ===== -->
+<section id="keahlian">
+  <p class="section-label reveal">Apa yang Saya Lakukan</p>
+  <h2 class="reveal reveal-2">Keahlian & <em>Spesialisasi</em></h2>
+
+  <div class="keahlian-grid">
+    <!-- UBAH: sesuaikan kartu keahlian -->
+    <div class="keahlian-kartu reveal">
+      <div class="keahlian-ikon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3 class="keahlian-judul">UI/UX Design</h3>
+      <p class="keahlian-deskripsi">Merancang antarmuka yang intuitif dan menyenangkan, dari wireframe hingga prototipe interaktif siap developer.</p>
+      <div class="keahlian-tags">
+        <span class="tag">Figma</span>
+        <span class="tag">Prototyping</span>
+        <span class="tag">User Research</span>
+      </div>
+    </div>
+
+    <div class="keahlian-kartu reveal reveal-2">
+      <div class="keahlian-ikon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <h3 class="keahlian-judul">Front-end Dev</h3>
+      <p class="keahlian-deskripsi">Mengubah desain menjadi kode yang bersih, performan, dan responsif dengan perhatian ekstra pada detail animasi.</p>
+      <div class="keahlian-tags">
+        <span class="tag">HTML/CSS</span>
+        <span class="tag">React</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="keahlian-kartu reveal reveal-3">
+      <div class="keahlian-ikon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l4 4"/></svg>
+      </div>
+      <h3 class="keahlian-judul">Motion Design</h3>
+      <p class="keahlian-deskripsi">Menambahkan jiwa pada antarmuka melalui animasi yang bermakna dan transisi yang memperkuat narasi produk.</p>
+      <div class="keahlian-tags">
+        <span class="tag">After Effects</span>
+        <span class="tag">Lottie</span>
+        <span class="tag">GSAP</span>
+      </div>
+    </div>
+
+    <div class="keahlian-kartu reveal reveal-4">
+      <div class="keahlian-ikon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
+      <h3 class="keahlian-judul">Branding</h3>
+      <p class="keahlian-deskripsi">Membangun identitas visual yang kohesif dan berkesan — dari logo, panduan merek, hingga materi pemasaran.</p>
+      <div class="keahlian-tags">
+        <span class="tag">Logo Design</span>
+        <span class="tag">Brand Guide</span>
+        <span class="tag">Typography</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== PROYEK ===== -->
+<section id="proyek">
+  <div class="proyek-header">
+    <div>
+      <p class="section-label reveal">Portofolio</p>
+      <h2 class="reveal reveal-2">Proyek <em>Pilihan</em></h2>
+    </div>
+    <a href="#" class="lihat-semua reveal">Lihat semua →</a>
+  </div>
+
+  <div class="proyek-grid">
+    <!-- PROYEK 1 — besar -->
+    <div class="proyek-kartu besar reveal">
+      <div class="proyek-gambar">
+        <!-- UBAH: <img src="proyek1.jpg" alt="Nama Proyek"> -->
+        <div class="gambar-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+      </div>
+      <div class="proyek-info">
+        <p class="proyek-no">01</p>
+        <h3 class="proyek-judul">Redesain Aplikasi Keuangan</h3>
+        <p class="proyek-deskripsi">Merancang ulang pengalaman pengguna untuk aplikasi fintech dengan 200k+ pengguna aktif, meningkatkan retensi sebesar 34%.</p>
+        <div class="proyek-meta">
+          <span class="proyek-tahun">2024</span>
+          <a href="#" class="proyek-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROYEK 2 — kecil -->
+    <div class="proyek-kartu kecil reveal reveal-2">
+      <div class="proyek-gambar">
+        <div class="gambar-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+      </div>
+      <div class="proyek-info">
+        <p class="proyek-no">02</p>
+        <h3 class="proyek-judul">Identitas Merek Kafe Lokal</h3>
+        <p class="proyek-deskripsi">Membangun identitas visual lengkap dari nol untuk jaringan kafe premium.</p>
+        <div class="proyek-meta">
+          <span class="proyek-tahun">2024</span>
+          <a href="#" class="proyek-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROYEK 3 — penuh -->
+    <div class="proyek-kartu penuh reveal">
+      <div class="proyek-gambar">
+        <div class="gambar-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+      </div>
+      <div class="proyek-info" style="display:flex;flex-direction:column;justify-content:center;">
+        <p class="proyek-no">03</p>
+        <h3 class="proyek-judul">Platform E-learning Interaktif</h3>
+        <p class="proyek-deskripsi">Memimpin desain produk untuk platform pendidikan berbasis AI yang melayani 50k+ pelajar. Mencakup sistem desain, alur onboarding, dan dashboard analitik.</p>
+        <div class="proyek-meta">
+          <span class="proyek-tahun">2023</span>
+          <a href="#" class="proyek-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== PENGALAMAN ===== -->
+<section id="pengalaman">
+  <p class="section-label reveal">Riwayat</p>
+  <h2 class="reveal reveal-2">Pengalaman <em>Kerja</em></h2>
+
+  <div class="timeline">
+    <!-- UBAH: sesuaikan riwayat pekerjaan -->
+    <div class="timeline-item reveal">
+      <div class="timeline-tahun">2022 — Kini</div>
+      <div>
+        <p class="timeline-posisi">Senior UI/UX Designer</p>
+        <p class="timeline-perusahaan">Tokopedia · Full-time</p>
+        <p class="timeline-deskripsi">Memimpin tim desain untuk fitur checkout dan produk iklan. Berkolaborasi lintas fungsi dengan PM, engineering, dan data.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal reveal-2">
+      <div class="timeline-tahun">2020 — 2022</div>
+      <div>
+        <p class="timeline-posisi">UI Designer</p>
+        <p class="timeline-perusahaan">Kreasi Digital Studio · Full-time</p>
+        <p class="timeline-deskripsi">Mengerjakan proyek desain aplikasi dan website untuk klien dari berbagai industri — fintech, kesehatan, dan e-commerce.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal reveal-3">
+      <div class="timeline-tahun">2019 — 2020</div>
+      <div>
+        <p class="timeline-posisi">Freelance Designer</p>
+        <p class="timeline-perusahaan">Mandiri · Remote</p>
+        <p class="timeline-deskripsi">Mengerjakan proyek branding dan UI untuk klien UMKM dan startup awal di Jawa Timur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== KONTAK ===== -->
+<section id="kontak">
+  <div class="kontak-teks">
+    <p class="section-label reveal">Kontak</p>
+    <h2 class="reveal reveal-2">Mari kita <em>bicara</em></h2>
+    <p class="reveal reveal-3">Terbuka untuk proyek lepas, kolaborasi, maupun peluang kerja penuh waktu yang menarik.</p>
+    <!-- UBAH: ganti dengan email Anda -->
+    <a href="mailto:halo@alexsantoso.id" class="kontak-email reveal reveal-3">halo@alexsantoso.id</a>
+    <div class="sosial-links reveal reveal-4">
+      <!-- UBAH: ganti href dengan tautan profil Anda -->
+      <a href="#" class="sosial-link">LinkedIn</a>
+      <a href="#" class="sosial-link">Dribbble</a>
+      <a href="#" class="sosial-link">GitHub</a>
+      <a href="#" class="sosial-link">Instagram</a>
+    </div>
+  </div>
+
+  <form class="kontak-form reveal reveal-2" onsubmit="kirimPesan(event)">
+    <div class="form-baris">
+      <div class="form-grup">
+        <label for="nama">Nama</label>
+        <input type="text" id="nama" placeholder="Budi Santoso">
+      </div>
+      <div class="form-grup">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="budi@contoh.com">
+      </div>
+    </div>
+    <div class="form-grup">
+      <label for="subjek">Subjek</label>
+      <input type="text" id="subjek" placeholder="Tentang proyek...">
+    </div>
+    <div class="form-grup">
+      <label for="pesan">Pesan</label>
+      <textarea id="pesan" rows="4" placeholder="Halo, saya ingin..."></textarea>
+    </div>
+    <button type="submit" class="tombol-kirim">Kirim Pesan</button>
+  </form>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <!-- UBAH: ganti nama -->
+  <span class="footer-nama">Alex Santoso</span>
+  <span class="footer-hak">© 2025 · Dibuat dengan ♥ di Malang</span>
+</footer>
+
+<script>
+  // Cursor kustom
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Kursor membesar saat hover elemen interaktif
+  document.querySelectorAll('a, button, input, textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '50px'; ring.style.height = '50px';
+      ring.style.borderColor = 'rgba(200,169,110,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '32px'; ring.style.height = '32px';
+      ring.style.borderColor = 'rgba(200,169,110,0.4)';
+    });
+  });
+
+  // Animasi reveal saat scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('tampil'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Hero reveal langsung
+  setTimeout(() => {
+    document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('tampil'));
+  }, 100);
+
+  // Form submit placeholder
+  function kirimPesan(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.tombol-kirim');
+    btn.textContent = 'Terkirim ✓';
+    btn.style.background = '#4a7c59';
+    setTimeout(() => { btn.textContent = 'Kirim Pesan'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+</script>
+</body>
+</html>
